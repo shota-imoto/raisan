@@ -1,5 +1,5 @@
 import { builtinModules } from 'module'
-import { urlHost } from '../common'
+import { urlHost, postHeader } from '../common'
 
 type contentProps = {
 	title: string,
@@ -28,7 +28,7 @@ const CreateContent = async (props: contentProps) => {
 		method: 'POST',
 		mode: 'cors',
 		// credentials: 'include',
-		headers: headers,
+		headers: postHeader,
 		body: body
 	}
 

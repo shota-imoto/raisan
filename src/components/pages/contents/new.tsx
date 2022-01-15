@@ -21,10 +21,12 @@ const CreateContentRequest = (props: contentProps) => {
 }
 
 const previewImage = (file: File | null) => {
+	console.log(file)
 	if (file == null) {
 		return false
 	}
 
+	console.log(URL.createObjectURL(file))
 	return URL.createObjectURL(file)
 }
 
@@ -38,7 +40,6 @@ const NewContents = () => {
 	const [image, setImage] = useState<string | false>(false)
 
 	const fileInput = useRef<HTMLInputElement>(null);
-	const file: File | null = getImageFromInputElement(fileInput.current)
 
 	return (
 		<div>
@@ -46,8 +47,8 @@ const NewContents = () => {
 			<div>
 				<input type="text" id="title" name="title" placeholder='タイトル' value={title} onChange={(e) => {setTitle(e.target.value)}} />
 				<input type="text" id="description" name="description" placeholder='詳細' value={description} onChange={(e) => {setDescription(e.target.value)}}/>
-				<input type="file" name="image" accept="image/*" ref={fileInput} onChange={(e) => {setImage(previewImage(file))}}/>
-				<input type="submit" value='登録' onClick={() => {CreateContentRequest({title: title, description: description, image: file})}}/>
+				<input type="file" name="image" accept="image/*" ref={fileInput} onChange={(e) => {console.log(e); setImage(previewImage(getImageFromInputElement(fileInput.current)))}}/>
+				<input type="submit" value='登録' onClick={() => {CreateContentRequest({title: title, description: description, image: getImageFromInputElement(fileInput.current)})}}/>
 			</div>
 			<div>
 				<div css={contentStyle}>{image}</div>
