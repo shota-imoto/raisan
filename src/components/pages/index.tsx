@@ -47,16 +47,12 @@ type ListProps = {
 }
 
 const List = ({contents}: ListProps) => {
-	contents.forEach((content)=> {
-		console.log(content.title)
-	})
-
 	return (
 		<div css={contentsStyle}>
 			{contents.map((content) => {
 				return (
 					<div css={contentStyle}>
-						<div css={contentImageStyle}>Image</div>
+						<div css={contentImageStyle}><img width='100px' src={"http://localhost:8080" + content.image}></img> </div>
 						<div css={contentTextStyle}>
 							<div css={contentTitleStyle}>{content.title}</div>
 							<div>{content.description}</div>
@@ -71,7 +67,7 @@ const List = ({contents}: ListProps) => {
 
 const Index = () => {
 	const [contents_ary, setContents] = useState<Content[]>([])
-	const [contents_data, setContentsData] = useState<{title: string, description: string, image:string}[]>([])
+	const [contents_data, setContentsData] = useState<{title: string, description: string, image: string}[]>([])
 
 	useEffect(() => {
 		fetchContentsIndex().then((data) => {
@@ -81,6 +77,7 @@ const Index = () => {
 
 	useEffect(() => {
 		const contents_ary: Content[] = contents_data.map((content) => {
+			console.log(content)
 			return new Content(content['title'], content['description'], content['image'])
 		})
 		setContents(contents_ary)
